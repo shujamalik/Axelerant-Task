@@ -1,0 +1,5 @@
+name: 'Axelerant Work'
+type: module
+description: 'A module for Axelerant Work.'
+package: 'Axelerant Work'
+core: 8.x

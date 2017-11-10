@@ -1,0 +1,24 @@
+<?php
+
+function axelerant_form_system_site_information_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  
+  $form['siteapikey'] = array(
+    '#type' => 'textfield',
+    '#title' => t("Site API Key"),
+    '#default_value' => 'No API Key yet',
+  );
+  $siteapikey = \Drupal::config('axelerant.settings')->get('siteapikey');
+  if($siteapikey){
+    $form['siteapikey']['#default_value'] = $siteapikey;
+  }
+  $form['#submit'][] = 'set_api_key';
+  $form['actions']['submit']['#value'] = 'Update Configuration';
+  
+}
+
+function set_api_key($form, \Drupal\Core\Form\FormStateInterface $form_state){
+
+  \Drupal::configFactory()->getEditable('axelerant.settings')->set('siteapikey', $form['siteapikey']['#value'])->save();
+  drupal_set_message('The Site API Key has been saved.','status',FALSE);
+
+}
